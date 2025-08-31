@@ -11,3 +11,7 @@ One shot for start your standoff work. to switch between tabs use Ctrl + b relea
 ```bash
 sudo qterminal --title "ROOT Term" -e "bash -c 'tmux new-session -d -s MAIN \"sudo -i\" \; new-window -n \"VPN STF\" \"openvpn --config /home/\$USER/your_config.ovpn --auth-user-pass pass.txt\" \; new-window -n \"VPN target\" \; new-window -n \"NXC\" \; new-window -n \"Proxy\" \"chisel server --port 8080 --reverse --auth proxy_user:proxy_pass\" \; new-window -n \"common\" \; new-window -n \"metasploit\" \"msfconsole\" \; select-window -t 0 \; attach'"
 ```
+Another nmap+naabu+cherrymap oneshot
+```bash
+sudo nmap -sn -iL scope.txt | sudo awk '/Nmap scan report/{print $NF}' | tee alive_hosts.txt && sudo naabu -list alive_hosts.txt -j -top-ports full -o open_ports.txt && nmap -sV -sC -iL alive_hosts.txt -p $(awk 'NR==1 {printf "%s",$0; next} {printf ",%s",$0}' open_ports.txt) -oA nmap_result; sudo cherrymap.py nmap_result.xml
+```
