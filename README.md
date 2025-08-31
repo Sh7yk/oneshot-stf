@@ -13,5 +13,5 @@ sudo qterminal --title "ROOT Term" -e "bash -c 'tmux new-session -d -s MAIN \"su
 ```
 Another nmap+naabu+cherrymap oneshot
 ```bash
-sudo nmap -sn -iL scope.txt | sudo awk '/Nmap scan report/{print $NF}' | tee alive_hosts.txt && sudo naabu -list alive_hosts.txt -j -top-ports full -o open_ports.txt && nmap -sV -sC -iL alive_hosts.txt -p $(awk 'NR==1 {printf "%s",$0; next} {printf ",%s",$0}' open_ports.txt) -oA nmap_result; sudo cherrymap.py nmap_result.xml
+sudo nmap -sn -iL scope.txt | sudo awk '/Nmap scan report/{print $NF}' | tee alive_hosts.txt && sudo naabu -list alive_hosts.txt -j -top-ports 10000 -o open_ports.txt && nmap -sV -sC -iL alive_hosts.txt -p $(awk 'NR==1 {printf "%s",$0; next} {printf ",%s",$0}' open_ports.txt) -oA nmap_result; sudo cherrymap.py nmap_result.xml
 ```
