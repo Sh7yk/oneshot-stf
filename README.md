@@ -5,6 +5,7 @@ nmap -T5 -sn <ip_range> | awk '/Nmap scan report/{print $NF}' | tee alive_hosts.
 
 One shot for find dns server -> add it to /etc/resolve.conf -> find live hosts -> write their hostnames to /etc/hosts 
 ```bash
+sudo sh -c 'export ip_range=<ip_range>;DNS=$(nmap -Pn -p53 --open $ip_range -oG - | awk "/\/open\//{print \$2}" | head -1) && [ -n "$DNS" ] && (echo "nameserver $DNS" >> /etc/resolv.conf; for ip in $(nmap -sn $ip_range -oG - | awk "/Up\$/{print \$2}"); do host=$(dig +short -x $ip @$DNS | sed "s/\.$//"); [ -n "$host" ] && echo "$ip $host" && echo "$ip\t$host" >> /etc/hosts; done) | tee ip-host.txt; chmod 644 ip-host.txt'
 ```
 One shot for start your standoff work. to switch between tabs use Ctrl + b release and press the desired tab number
 ```bash
