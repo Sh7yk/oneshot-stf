@@ -1,6 +1,6 @@
 One shot for identify live hosts -> detect web services -> find pages possibly containing emails -> collect emails
 ```bash
-nmap -T5 -sn <ip_range> | awk '/Nmap scan report/{print $NF}' | tee alive_hosts.txt | httpxx -silent | tee web_scope.txt | feroxbuster --silent -r --stdin --parallel 20 -k -w /usr/share/wordlists/emails_endpoints.txt -s 200 --dont-scan js,png,jpg,jpeg,css -A > web_urls.txt;touch emails_list.txt; for url in $(cat web_urls.txt);do;cewl $url -d 3 -e -n | grep -v CeWL >> emails_list.txt;done
+nmap -sn <ip_range> | awk '/Nmap scan report/{print $NF}' | tee alive_hosts.txt | httpxx -silent | tee web_scope.txt | feroxbuster --silent -r --stdin --parallel 20 -k -w /usr/share/wordlists/emails_endpoints.txt -s 200 --dont-scan js,png,jpg,jpeg,css -A > web_urls.txt;touch emails_list.txt; for url in $(cat web_urls.txt);do;cewl $url -d 3 -e -n | grep -v CeWL >> emails_list.txt;done
 ```
 
 One shot for find dns server -> add it to /etc/resolve.conf -> find live hosts -> write their hostnames to /etc/hosts 
