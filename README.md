@@ -1,7 +1,7 @@
 <img width="495" height="494" alt="image" src="https://github.com/user-attachments/assets/c19bdbac-8691-46cb-a1fe-77fcdafb5233" />
 
 ## Description
-A simple script to automate my routine steps at the beginning of internal network pentesting. Perhaps you'll find it useful too. :)
+A simple scripts to automate my routine steps at the beginning of internal network pentesting. Perhaps you'll find it useful too. :)
 ## Requirements
 Before starting, you will need to install the necessary tools, mainly from ProjectDiscovery
 ```bash
@@ -36,5 +36,10 @@ Before launching, make sure that the `scope.txt` file is nearby and already cont
 ```bash
 sudo ./sh7yk-attack.sh
 ```
+### Yealink non-auth API commands checker
+```bash
+./yealink_tuktuk.sh <TARGRT_IP>
+```
 
 ## Use only with permission of the infrastructure owner!
+
